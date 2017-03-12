@@ -21,6 +21,21 @@
   <img src="https://source.unsplash.com/7bwQXzbF6KE/800x500">
 
   <style>
+    :root {
+      --base: #ffc600;
+      --blur: 10px;
+      --spacing: 10px;
+    }
+
+    img {
+      padding: var(--spacing);
+      background: var(--base);
+      filter: blur(var(--blur));
+    }
+
+    .hl {
+      color: var(--base);
+    }
 
     /*
       misc styles, nothing to do with CSS variables
@@ -48,7 +63,27 @@
   </style>
 
   <script>
+    const inputs = document.querySelectorAll('.controls input'); // returns NodeList not an array
+    // NodeList looks like an array but doesn't have all the method that array has
+    function handleUpdate() {
+      const suffix = this.dataset.sizing || '';
+      // setting up a defult value for color instance as it doesn't have a sizing data
+      document.documentElement.style.setProperty(`--${this.name}`, this.value + suffix);
+    }
+
+    inputs.forEach(input => {
+      input.addEventListener('change', handleUpdate);
+      input.addEventListener('mousemove', handleUpdate);
+    })
   </script>
 
 </body>
 </html>
+
+
+<!--
+What I learned
+  - dataset
+  - CSS var
+  - Node List returned from querySelector
+-->
